@@ -1,0 +1,25 @@
+services:
+  prometheus:
+    container_name: super-biz-prometheus
+    image: prom/prometheus:v2.55.1
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.enable-lifecycle"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/rules:/etc/prometheus/rules:ro
+      - prometheus-data:/prometheus
+    depends_on:
+      - node-exporter
+
+  node-exporter:
+    container_name: super-biz-node-exporter
+    image: prom/node-exporter:v1.9.1
+    ports:
+      - "9100:9100"
+
+volumes:
+  prometheus-data:

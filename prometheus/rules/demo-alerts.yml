@@ -1,0 +1,32 @@
+groups:
+  - name: super-biz-agent-demo
+    rules:
+      - alert: SuperBizAgentPrometheusReady
+        expr: vector(1)
+        for: 15s
+        labels:
+          severity: info
+          job: prometheus
+        annotations:
+          summary: Prometheus demo alert is firing
+          description: This demo alert proves that the SuperBizAgent Prometheus alerts API can return real firing alerts.
+
+      - alert: HighNodeCPUUsage
+        expr: (1 - avg by (instance) (rate(node_cpu_seconds_total{job="node-exporter", mode="idle"}[5m]))) * 100 > 80
+        for: 1m
+        labels:
+          severity: warning
+          job: node-exporter
+        annotations:
+          summary: Node CPU usage is high
+          description: Node exporter reports CPU usage above 80%.
+
+      - alert: HighNodeMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes{job="node-exporter"} / node_memory_MemTotal_bytes{job="node-exporter"})) * 100 > 70
+        for: 1m
+        labels:
+          severity: warning
+          job: node-exporter
+        annotations:
+          summary: Node memory usage is high
+          description: Node exporter reports memory usage above 70%.

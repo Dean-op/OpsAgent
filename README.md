@@ -1,4 +1,4 @@
-# SuperBizAgent
+# IntelligentOpsAgent
 
 企业级智能对话与智能运维助手。当前版本支持 RAG 知识库问答、AIOps 自动诊断、Prometheus 监控查询、MCP 工具调用，并默认通过 OpenAI 兼容协议接入硅基流动模型。
 
@@ -81,7 +81,6 @@ python -m uvicorn app.main:app --host 0.0.0.0 --port 9900
 
 ## 配置
 
-项目通过 `.env` 读取配置。`.env` 不应提交到 Git。
 
 ```env
 LLM_API_KEY=your-siliconflow-api-key
@@ -166,40 +165,6 @@ node --check static\app.js
 .\.venv\Scripts\python.exe -m pytest tests -q
 ```
 
-## 常见问题
-
-### `.env` 已经被提交过怎么办？
-
-当前 `.gitignore` 已忽略 `.env`。如果历史提交中泄露过真实 API Key，请到硅基流动后台作废旧 Key 并重新生成。
-
-### AIOps 看起来不是全程逐字输出？
-
-计划生成和工具查询必须等节点完成后才能返回；最终诊断报告阶段已经支持 token/片段级真流式输出。
-
-### MCP Server 启动失败？
-
-检查端口是否被占用：
-
-```powershell
-netstat -ano | findstr :8003
-netstat -ano | findstr :8004
-```
-
-也可以直接执行：
-
-```powershell
-.\stop-windows.bat
-.\start-windows.bat
-```
-
-### Prometheus 没有数据？
-
-确认容器和端口：
-
-```powershell
-docker ps
-Invoke-WebRequest -Uri "http://127.0.0.1:9090/-/healthy" -UseBasicParsing
-```
 
 ## 许可证
 

@@ -243,6 +243,10 @@ body {
     flex-shrink: 0;
 }
 
+.ai-ops-top-btn.is-loading svg {
+    animation: spin 0.8s linear infinite;
+}
+
 .chat-container {
     flex: 1;
     display: flex;
@@ -866,6 +870,10 @@ body {
 .send-btn-circle svg {
     width: 20px;
     height: 20px;
+}
+
+.send-btn-circle.is-loading svg {
+    animation: spin 0.8s linear infinite;
 }
 
 /* 自定义滚动条 */

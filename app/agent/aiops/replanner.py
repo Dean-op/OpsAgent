@@ -11,6 +11,7 @@ from loguru import logger
 
 from app.config import config
 from app.core.llm_factory import llm_factory
+from .replan_policy import should_force_continue
 from app.tools import DEFAULT_LOCAL_AGENT_TOOLS
 from app.agent.mcp_client import get_mcp_client_with_retry
 from .state import PlanExecuteState
@@ -56,32 +57,29 @@ replanner_prompt = ChatPromptTemplate.from_messages(
                 **1. 'respond' - 信息充足，立即生成最终响应** 【最高优先级】
                    - 使用场景：当前信息已经足够回答用户问题
                    - 决策标准：
-                     * 已执行步骤 >= 3 且获取了关键信息
-                     * 或者已执行步骤 >= 5（无论结果如何）
-                     * 或者当前信息完全满足任务需求
-                   - ⚠️ 不要等到"完美"才响应，"足够好"就应该立即 respond
+                     * 当前没有剩余计划步骤
+                     * 或者第一步已经明确确认当前没有活跃告警
+                   - ⚠️ 如果仍有剩余计划步骤，不要提前 respond，先继续执行计划
 
                 **2. 'continue' - 当前计划合理，继续执行** 【次优先级】
                    - 使用场景：剩余计划合理且必要
-                   - 决策标准：剩余步骤确实能提供关键信息
-                   - ⚠️ 如果剩余步骤不是"必需"的，应选择 respond
+                   - 决策标准：仍有剩余计划步骤时，默认选择 continue
 
                 **3. 'replan' - 当前计划有严重问题** 【最低优先级，谨慎使用】
                    - 使用场景：原计划明显错误或遗漏关键步骤
                    - ⚠️ **严格限制**：
                      * 新步骤数量必须 <= 当前剩余步骤数
                      * 优先简化计划，不要添加不必要的步骤
-                     * 总步骤数已执行 >= 5 次时，禁止 replan，只能 respond
+                     * 总步骤数已执行 >= 8 次时，禁止 replan，只能 respond
 
                 评估标准：
-                - 当前信息是否已经足够解决用户问题？【最关键】
+                - 当前计划是否已经执行完？【最关键】
                 - 已执行步骤是否成功获取了核心信息？
-                - 剩余步骤是否真的"必需"？
-                - 已执行步骤数是否过多（>= 5）？如果是，立即 respond
+                - 剩余步骤是否仍然合理？
+                - 已执行步骤数是否过多（>= 8）？如果是，立即 respond
 
                 **决策优先级口诀：** 
-                "优先结束 > 保持不变 > 调整计划"
-                "信息足够就响应，不要追求完美"
+                "计划未完先继续，计划完成再总结"
             """).strip(),
         ),
         ("placeholder", "{messages}"),
@@ -125,6 +123,10 @@ async def replanner(state: PlanExecuteState) -> Dict[str, Any]:
 
     logger.info(f"剩余计划步骤: {len(plan)}")
     logger.info(f"已执行步骤: {len(past_steps)}")
+
+    if should_force_continue(plan, past_steps):
+        logger.info("根据重规划策略：继续执行剩余计划，暂不生成最终报告")
+        return {}
 
     # ⚠️ 强制限制：如果已执行步骤过多，直接生成响应
     MAX_STEPS = 8

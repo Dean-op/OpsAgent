@@ -17,6 +17,17 @@ from .state import PlanExecuteState
 from .utils import format_tools_description
 
 
+MAX_PLAN_STEPS = 6
+
+
+def _is_report_generation_step(step: str) -> bool:
+    """判断步骤是否只是最终报告生成，报告由 Replanner 统一生成。"""
+    text = step.lower()
+    report_markers = ("报告", "markdown", "总结", "结论")
+    action_markers = ("生成", "输出", "撰写", "编写", "综合")
+    return any(marker in text for marker in report_markers) and any(marker in text for marker in action_markers)
+
+
 class Plan(BaseModel):
     """计划的输出格式"""
     steps: List[str] = Field(
@@ -42,9 +53,11 @@ planner_prompt = ChatPromptTemplate.from_messages(
 
                 对于给定的任务，请创建一个简单的、逐步的计划来完成它。计划应该：
                 - 将任务分解为逻辑上独立的步骤
+                - 控制在 4-6 个步骤内，避免把同一类排查拆成过多小步骤
                 - 每个步骤应该明确使用哪些工具(如果需要工具的话)来获取信息, 最好能同时提供工具执行所需要的参数
                 - 步骤之间应该有清晰的依赖关系
                 - 步骤描述要具体、可操作
+                - 不要把“生成最终报告”作为执行步骤，系统会在执行完成后统一生成报告
                 - **如果有相关经验文档，请参考其中的方法和步骤制定计划**
 
                 示例输入："分析当前系统的性能问题"
@@ -140,6 +153,15 @@ async def planner(state: PlanExecuteState) -> Dict[str, Any]:
         else:
             # 如果返回的是字典，提取 steps 字段
             plan_steps = plan_result.get("steps", [])  # type: ignore
+
+        original_steps = [str(step).strip() for step in plan_steps if str(step).strip()]
+        plan_steps = [step for step in original_steps if not _is_report_generation_step(step)]
+        if original_steps and not plan_steps:
+            logger.warning("计划步骤过滤后为空，保留原始计划以避免无步骤执行")
+            plan_steps = original_steps
+        if len(plan_steps) > MAX_PLAN_STEPS:
+            logger.warning(f"计划步骤数 {len(plan_steps)} 超过 {MAX_PLAN_STEPS}，已截断以保证演示节奏")
+            plan_steps = plan_steps[:MAX_PLAN_STEPS]
 
         logger.info(f"计划已生成，共 {len(plan_steps)} 个步骤")
         for i, step in enumerate(plan_steps, 1):

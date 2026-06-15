@@ -5,6 +5,8 @@ class SuperBizAgentApp {
         this.currentMode = 'quick'; // 'quick' 或 'stream'
         this.sessionId = this.generateSessionId();
         this.isStreaming = false;
+        this.aiOpsPlanTotal = 0;
+        this.aiOpsCompletedSteps = 0;
         this.currentChatHistory = []; // 当前对话的消息历史
         this.chatHistories = this.loadChatHistories(); // 所有历史对话
         this.isCurrentChatFromHistory = false; // 标记当前对话是否是从历史记录加载的
@@ -611,8 +613,13 @@ class SuperBizAgentApp {
         // 更新发送按钮状态
         if (this.sendButton) {
             this.sendButton.disabled = this.isStreaming;
+            this.sendButton.classList.toggle('is-loading', this.isStreaming);
         }
-        
+
+        if (this.aiOpsSidebarBtn) {
+            this.aiOpsSidebarBtn.classList.toggle('is-loading', this.isStreaming);
+        }
+
         // 更新输入框状态
         if (this.messageInput) {
             this.messageInput.disabled = this.isStreaming;
@@ -1251,10 +1258,15 @@ class SuperBizAgentApp {
                                                 fullResponse += sseMessage.data || '';
                                             } else if (sseMessage.type === 'plan') {
                                                 // 处理计划创建事件
+                                                if (Array.isArray(sseMessage.plan)) {
+                                                    this.aiOpsPlanTotal = sseMessage.plan.length;
+                                                    this.aiOpsCompletedSteps = 0;
+                                                }
                                                 const planText = this.formatAIOpsEvent(sseMessage);
                                                 fullResponse += planText;
                                             } else if (sseMessage.type === 'step_complete') {
                                                 // 处理步骤完成事件
+                                                this.aiOpsCompletedSteps += 1;
                                                 const stepText = this.formatAIOpsEvent(sseMessage);
                                                 fullResponse += stepText;
                                             } else if (sseMessage.type === 'status') {
@@ -1273,10 +1285,14 @@ class SuperBizAgentApp {
                                                     fullResponse += `\n\n${sseMessage.response}`;
                                                 }
                                                 this.updateAIOpsMessage(loadingMessageElement, fullResponse, []);
+                                                this.aiOpsPlanTotal = 0;
+                                                this.aiOpsCompletedSteps = 0;
                                                 return true;
                                             } else if (sseMessage.type === 'done') {
                                                 console.log('AI Ops 流完成，最终内容长度:', fullResponse.length);
                                                 this.updateAIOpsMessage(loadingMessageElement, fullResponse, []);
+                                                this.aiOpsPlanTotal = 0;
+                                                this.aiOpsCompletedSteps = 0;
                                                 return true;
                                             } else if (sseMessage.type === 'error') {
                                                 throw new Error(sseMessage.data || sseMessage.message || '智能运维分析失败');
@@ -1309,6 +1325,10 @@ class SuperBizAgentApp {
                                             }
                                         } else if (sseMessage.type === 'plan') {
                                             // 处理计划创建事件
+                                            if (Array.isArray(sseMessage.plan)) {
+                                                this.aiOpsPlanTotal = sseMessage.plan.length;
+                                                this.aiOpsCompletedSteps = 0;
+                                            }
                                             const planText = this.formatAIOpsEvent(sseMessage);
                                             fullResponse += planText;
                                             if (loadingMessageElement) {
@@ -1316,6 +1336,7 @@ class SuperBizAgentApp {
                                             }
                                         } else if (sseMessage.type === 'step_complete') {
                                             // 处理步骤完成事件
+                                            this.aiOpsCompletedSteps += 1;
                                             const stepText = this.formatAIOpsEvent(sseMessage);
                                             fullResponse += stepText;
                                             if (loadingMessageElement) {
@@ -1344,10 +1365,14 @@ class SuperBizAgentApp {
                                             }
                                             // 使用最终的完整内容更新消息
                                             this.updateAIOpsMessage(loadingMessageElement, fullResponse, []);
+                                            this.aiOpsPlanTotal = 0;
+                                            this.aiOpsCompletedSteps = 0;
                                             return;
                                         } else if (sseMessage.type === 'done') {
                                             console.log('AI Ops 流完成，最终内容长度:', fullResponse.length);
                                             this.updateAIOpsMessage(loadingMessageElement, fullResponse, []);
+                                            this.aiOpsPlanTotal = 0;
+                                            this.aiOpsCompletedSteps = 0;
                                             return;
                                         } else if (sseMessage.type === 'error') {
                                             throw new Error(sseMessage.data || sseMessage.message || '智能运维分析失败');
@@ -1391,10 +1416,16 @@ class SuperBizAgentApp {
 
         if (sseMessage.type === 'step_complete') {
             const currentStep = sseMessage.current_step ? `\n\n> ${sseMessage.current_step}` : '';
+            const total = Number.isInteger(this.aiOpsPlanTotal) && this.aiOpsPlanTotal > 0
+                ? this.aiOpsPlanTotal
+                : (Number.isInteger(sseMessage.total_steps) ? sseMessage.total_steps : null);
+            const progress = total
+                ? `\n\n进度：第 ${Math.min(this.aiOpsCompletedSteps, total)}/${total} 步`
+                : '';
             const remaining = Number.isInteger(sseMessage.remaining_steps)
                 ? `\n\n剩余步骤：${sseMessage.remaining_steps}`
                 : '';
-            return `\n\n### 步骤完成\n\n${sseMessage.message || ''}${currentStep}${remaining}\n`;
+            return `\n\n### 步骤完成\n\n${sseMessage.message || ''}${currentStep}${progress}${remaining}\n`;
         }
 
         if (sseMessage.type === 'status') {
@@ -1625,6 +1656,8 @@ class SuperBizAgentApp {
         // 添加"分析中..."的消息（带旋转动画）
         const loadingMessage = this.addLoadingMessage('分析中...');
         this.currentAIOpsMessage = loadingMessage; // 保存消息引用用于后续更新
+        this.aiOpsPlanTotal = 0;
+        this.aiOpsCompletedSteps = 0;
         
         // 设置发送状态
         this.isStreaming = true;

@@ -25,6 +25,7 @@ venv/
 env/
 ENV/
 .venv
+.venv/
 
 # uv
 .uv/
@@ -43,16 +44,23 @@ poetry.lock
 .codebuddy/
 
 # Environment
+.env
+.env.*
+!.env.example
 .env.local
+.envrc
 
 # Logs
 logs/
 *.log
+*.out
+*.err
 *.pid
 
 # Database
 *.db
 *.sqlite
+*.sqlite3
 
 # Milvus
 volumes/
@@ -60,14 +68,19 @@ volumes/
 # Uploads
 uploads/
 *.tmp
+tmp/
+temp/
 
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Pytest
 .pytest_cache/
 .coverage
+.coverage.*
+coverage.xml
 htmlcov/
 
 # MyPy
@@ -78,3 +91,11 @@ dmypy.json
 # Ruff
 .ruff_cache/
 
+# Type checkers / test tooling
+.pyright/
+.tox/
+.nox/
+.hypothesis/
+
+# Jupyter
+.ipynb_checkpoints/

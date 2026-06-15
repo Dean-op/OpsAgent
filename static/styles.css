@@ -379,6 +379,43 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.message-avatar.aiops-active {
+    animation: aiopsAvatarSpin 1.2s linear infinite;
+    box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.35), 0 2px 8px rgba(26, 115, 232, 0.25);
+}
+
+.message-avatar.aiops-active::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 2px solid rgba(26, 115, 232, 0.28);
+    animation: aiopsAvatarGlow 1.4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.message-avatar.aiops-active svg {
+    transform-origin: center;
+}
+
+@keyframes aiopsAvatarSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes aiopsAvatarGlow {
+    0%, 100% {
+        opacity: 0.45;
+        transform: scale(0.92);
+        box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.24);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.12);
+        box-shadow: 0 0 14px 4px rgba(26, 115, 232, 0.18);
+    }
+}
+
 .message.assistant .message-avatar svg {
     width: 20px;
     height: 20px;

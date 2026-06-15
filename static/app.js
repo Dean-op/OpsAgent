@@ -1199,7 +1199,8 @@ class SuperBizAgentApp {
                 throw new Error(`HTTP错误: ${response.status}`);
             }
 
-            let fullResponse = '';
+            let finalReport = '';
+            let processDetails = '';
 
             // 处理 SSE 流式响应
             const reader = response.body.getReader();
@@ -1213,9 +1214,9 @@ class SuperBizAgentApp {
                     
                     if (done) {
                         // 流结束，更新最终内容
-                        if (fullResponse) {
-                            console.log('AI Ops 流结束，更新最终内容，长度:', fullResponse.length);
-                            this.updateAIOpsMessage(loadingMessageElement, fullResponse, []);
+                        if (finalReport || processDetails) {
+                            console.log('AI Ops 流结束，最终报告长度:', finalReport.length);
+                            this.updateAIOpsMessage(loadingMessageElement, finalReport || '诊断流程已完成，但未生成报告。', processDetails);
                         }
                         break;
                     }
@@ -1254,48 +1255,18 @@ class SuperBizAgentApp {
                                     for (const jsonStr of matches) {
                                         try {
                                             const sseMessage = JSON.parse(jsonStr);
-                                            if (sseMessage.type === 'content') {
-                                                fullResponse += sseMessage.data || '';
-                                            } else if (sseMessage.type === 'plan') {
-                                                // 处理计划创建事件
-                                                if (Array.isArray(sseMessage.plan)) {
-                                                    this.aiOpsPlanTotal = sseMessage.plan.length;
-                                                    this.aiOpsCompletedSteps = 0;
-                                                }
-                                                const planText = this.formatAIOpsEvent(sseMessage);
-                                                fullResponse += planText;
-                                            } else if (sseMessage.type === 'step_complete') {
-                                                // 处理步骤完成事件
-                                                this.aiOpsCompletedSteps += 1;
-                                                const stepText = this.formatAIOpsEvent(sseMessage);
-                                                fullResponse += stepText;
-                                            } else if (sseMessage.type === 'status') {
-                                                // 处理状态更新事件
-                                                const statusText = this.formatAIOpsEvent(sseMessage);
-                                                fullResponse += statusText;
-                                            } else if (sseMessage.type === 'report') {
-                                                // 处理最终报告事件 - 流式输出
-                                                console.log('AI Ops 最终报告生成');
-                                                const reportText = `\n\n## 🎯 诊断报告\n\n${sseMessage.report || ''}\n`;
-                                                fullResponse += reportText;
-                                            } else if (sseMessage.type === 'complete') {
-                                                // 处理完成事件
-                                                console.log('AI Ops 诊断完成');
-                                                if (sseMessage.response) {
-                                                    fullResponse += `\n\n${sseMessage.response}`;
-                                                }
-                                                this.updateAIOpsMessage(loadingMessageElement, fullResponse, []);
+                                            const state = this.handleAIOpsSSEMessage(
+                                                sseMessage,
+                                                loadingMessageElement,
+                                                finalReport,
+                                                processDetails
+                                            );
+                                            finalReport = state.finalReport;
+                                            processDetails = state.processDetails;
+                                            if (state.done) {
                                                 this.aiOpsPlanTotal = 0;
                                                 this.aiOpsCompletedSteps = 0;
                                                 return true;
-                                            } else if (sseMessage.type === 'done') {
-                                                console.log('AI Ops 流完成，最终内容长度:', fullResponse.length);
-                                                this.updateAIOpsMessage(loadingMessageElement, fullResponse, []);
-                                                this.aiOpsPlanTotal = 0;
-                                                this.aiOpsCompletedSteps = 0;
-                                                return true;
-                                            } else if (sseMessage.type === 'error') {
-                                                throw new Error(sseMessage.data || sseMessage.message || '智能运维分析失败');
                                             }
                                         } catch (e) {
                                             if (e.message.includes('智能运维')) throw e;
@@ -1303,7 +1274,8 @@ class SuperBizAgentApp {
                                         }
                                     }
                                     if (loadingMessageElement) {
-                                        this.updateAIOpsStreamContent(loadingMessageElement, fullResponse);
+                                        this.updateAIOpsStreamContent(loadingMessageElement, finalReport || '正在生成告警分析报告...');
+                                        this.updateAIOpsProcessDetails(loadingMessageElement, processDetails);
                                     }
                                     return false;
                                 }
@@ -1318,77 +1290,33 @@ class SuperBizAgentApp {
                                 try {
                                     const sseMessage = JSON.parse(rawData);
                                     if (sseMessage && sseMessage.type) {
-                                        if (sseMessage.type === 'content') {
-                                            fullResponse += sseMessage.data || '';
-                                            if (loadingMessageElement) {
-                                                this.updateAIOpsStreamContent(loadingMessageElement, fullResponse);
-                                            }
-                                        } else if (sseMessage.type === 'plan') {
-                                            // 处理计划创建事件
-                                            if (Array.isArray(sseMessage.plan)) {
-                                                this.aiOpsPlanTotal = sseMessage.plan.length;
-                                                this.aiOpsCompletedSteps = 0;
-                                            }
-                                            const planText = this.formatAIOpsEvent(sseMessage);
-                                            fullResponse += planText;
-                                            if (loadingMessageElement) {
-                                                this.updateAIOpsStreamContent(loadingMessageElement, fullResponse);
-                                            }
-                                        } else if (sseMessage.type === 'step_complete') {
-                                            // 处理步骤完成事件
-                                            this.aiOpsCompletedSteps += 1;
-                                            const stepText = this.formatAIOpsEvent(sseMessage);
-                                            fullResponse += stepText;
-                                            if (loadingMessageElement) {
-                                                this.updateAIOpsStreamContent(loadingMessageElement, fullResponse);
-                                            }
-                                        } else if (sseMessage.type === 'status') {
-                                            // 处理状态更新事件
-                                            const statusText = this.formatAIOpsEvent(sseMessage);
-                                            fullResponse += statusText;
-                                            if (loadingMessageElement) {
-                                                this.updateAIOpsStreamContent(loadingMessageElement, fullResponse);
-                                            }
-                                        } else if (sseMessage.type === 'report') {
-                                            // 处理最终报告事件 - 这是关键！
-                                            console.log('AI Ops 最终报告生成，流式输出中...');
-                                            const reportText = `\n\n## 🎯 诊断报告\n\n${sseMessage.report || ''}\n`;
-                                            fullResponse += reportText;
-                                            if (loadingMessageElement) {
-                                                this.updateAIOpsStreamContent(loadingMessageElement, fullResponse);
-                                            }
-                                        } else if (sseMessage.type === 'complete') {
-                                            // 处理完成事件
-                                            console.log('AI Ops 诊断完成，最终内容长度:', fullResponse.length);
-                                            if (sseMessage.response) {
-                                                fullResponse += `\n\n${sseMessage.response}`;
-                                            }
-                                            // 使用最终的完整内容更新消息
-                                            this.updateAIOpsMessage(loadingMessageElement, fullResponse, []);
+                                        const state = this.handleAIOpsSSEMessage(
+                                            sseMessage,
+                                            loadingMessageElement,
+                                            finalReport,
+                                            processDetails
+                                        );
+                                        finalReport = state.finalReport;
+                                        processDetails = state.processDetails;
+                                        if (state.done) {
                                             this.aiOpsPlanTotal = 0;
                                             this.aiOpsCompletedSteps = 0;
                                             return;
-                                        } else if (sseMessage.type === 'done') {
-                                            console.log('AI Ops 流完成，最终内容长度:', fullResponse.length);
-                                            this.updateAIOpsMessage(loadingMessageElement, fullResponse, []);
-                                            this.aiOpsPlanTotal = 0;
-                                            this.aiOpsCompletedSteps = 0;
-                                            return;
-                                        } else if (sseMessage.type === 'error') {
-                                            throw new Error(sseMessage.data || sseMessage.message || '智能运维分析失败');
                                         }
                                     } else {
-                                        fullResponse += rawData;
+                                        processDetails += rawData;
                                         if (loadingMessageElement) {
-                                            this.updateAIOpsStreamContent(loadingMessageElement, fullResponse);
+                                            this.updateAIOpsStreamContent(loadingMessageElement, finalReport || '正在生成告警分析报告...');
+                                            this.updateAIOpsProcessDetails(loadingMessageElement, processDetails);
                                         }
                                     }
                                 } catch (e) {
                                     if (e.message.includes('智能运维')) throw e;
                                     // 非 JSON 格式，直接追加原始数据
-                                    fullResponse += rawData;
+                                    processDetails += rawData;
                                     if (loadingMessageElement) {
-                                        this.updateAIOpsStreamContent(loadingMessageElement, fullResponse);
+                                        this.updateAIOpsStreamContent(loadingMessageElement, finalReport || '正在生成告警分析报告...');
+                                        this.updateAIOpsProcessDetails(loadingMessageElement, processDetails);
                                     }
                                 }
                             }
@@ -1438,12 +1366,90 @@ class SuperBizAgentApp {
         return '';
     }
 
+    handleAIOpsSSEMessage(sseMessage, messageElement, finalReport, processDetails) {
+        if (!sseMessage || !sseMessage.type) {
+            return { finalReport, processDetails, done: false };
+        }
+
+        if (sseMessage.type === 'content') {
+            finalReport += sseMessage.data || '';
+            this.updateAIOpsStreamContent(messageElement, finalReport || '正在生成告警分析报告...');
+            this.updateAIOpsProcessDetails(messageElement, processDetails);
+            return { finalReport, processDetails, done: false };
+        }
+
+        if (sseMessage.type === 'plan') {
+            if (Array.isArray(sseMessage.plan)) {
+                this.aiOpsPlanTotal = sseMessage.plan.length;
+                this.aiOpsCompletedSteps = 0;
+            }
+            processDetails += this.formatAIOpsEvent(sseMessage);
+            this.updateAIOpsStreamContent(messageElement, finalReport || '正在制定诊断计划...');
+            this.updateAIOpsProcessDetails(messageElement, processDetails);
+            return { finalReport, processDetails, done: false };
+        }
+
+        if (sseMessage.type === 'step_complete') {
+            this.aiOpsCompletedSteps += 1;
+            processDetails += this.formatAIOpsEvent(sseMessage);
+            this.updateAIOpsStreamContent(messageElement, finalReport || '正在执行诊断步骤...');
+            this.updateAIOpsProcessDetails(messageElement, processDetails);
+            return { finalReport, processDetails, done: false };
+        }
+
+        if (sseMessage.type === 'status') {
+            processDetails += this.formatAIOpsEvent(sseMessage);
+            this.updateAIOpsStreamContent(messageElement, finalReport || (sseMessage.message || '正在分析...'));
+            this.updateAIOpsProcessDetails(messageElement, processDetails);
+            return { finalReport, processDetails, done: false };
+        }
+
+        if (sseMessage.type === 'report') {
+            if (sseMessage.report) {
+                finalReport += sseMessage.report;
+            }
+            this.updateAIOpsStreamContent(messageElement, finalReport || '正在生成告警分析报告...');
+            this.updateAIOpsProcessDetails(messageElement, processDetails);
+            return { finalReport, processDetails, done: false };
+        }
+
+        if (sseMessage.type === 'complete') {
+            const response = sseMessage.response || (sseMessage.diagnosis && sseMessage.diagnosis.report) || '';
+            if (!finalReport && response) {
+                finalReport = response;
+            }
+            this.updateAIOpsMessage(messageElement, finalReport || '诊断流程已完成，但未生成报告。', processDetails);
+            return { finalReport, processDetails, done: true };
+        }
+
+        if (sseMessage.type === 'done') {
+            this.updateAIOpsMessage(messageElement, finalReport || '诊断流程已完成。', processDetails);
+            return { finalReport, processDetails, done: true };
+        }
+
+        if (sseMessage.type === 'error') {
+            throw new Error(sseMessage.data || sseMessage.message || '智能运维分析失败');
+        }
+
+        return { finalReport, processDetails, done: false };
+    }
+
+    // AIOps 流式阶段：让左上角头像进入活跃动画状态
+    setAIOpsAvatarActive(messageElement, active) {
+        if (!messageElement) return;
+        const avatar = messageElement.querySelector('.message-avatar');
+        if (avatar) {
+            avatar.classList.toggle('aiops-active', Boolean(active));
+        }
+    }
+
     // 更新智能运维流式内容（实时显示）
     updateAIOpsStreamContent(messageElement, content) {
         if (!messageElement) return;
         
         // 添加 aiops-message 类
         messageElement.classList.add('aiops-message');
+        this.setAIOpsAvatarActive(messageElement, true);
         
         const messageContentWrapper = messageElement.querySelector('.message-content-wrapper');
         if (messageContentWrapper) {
@@ -1458,6 +1464,46 @@ class SuperBizAgentApp {
             messageContent.innerHTML = this.renderMarkdown(content);
             this.highlightCodeBlocks(messageContent);
             this.scrollToBottom();
+        }
+    }
+
+    updateAIOpsProcessDetails(messageElement, detailsMarkdown) {
+        if (!messageElement || !detailsMarkdown) return;
+
+        const messageContentWrapper = messageElement.querySelector('.message-content-wrapper');
+        if (!messageContentWrapper) return;
+
+        let detailsContainer = messageElement.querySelector('.aiops-details');
+        if (!detailsContainer) {
+            detailsContainer = document.createElement('div');
+            detailsContainer.className = 'aiops-details';
+
+            const detailsToggle = document.createElement('div');
+            detailsToggle.className = 'details-toggle';
+            detailsToggle.innerHTML = `
+                <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>查看诊断过程</span>
+            `;
+
+            const detailsContent = document.createElement('div');
+            detailsContent.className = 'details-content';
+
+            detailsToggle.addEventListener('click', () => {
+                detailsContent.classList.toggle('expanded');
+                detailsToggle.classList.toggle('expanded');
+            });
+
+            detailsContainer.appendChild(detailsToggle);
+            detailsContainer.appendChild(detailsContent);
+            messageContentWrapper.insertBefore(detailsContainer, messageContentWrapper.firstChild);
+        }
+
+        const detailsContent = detailsContainer.querySelector('.details-content');
+        if (detailsContent) {
+            detailsContent.innerHTML = this.renderMarkdown(detailsMarkdown);
+            this.highlightCodeBlocks(detailsContent);
         }
     }
 
@@ -1477,6 +1523,7 @@ class SuperBizAgentApp {
 
         // 添加aiops-message类
         messageElement.classList.add('aiops-message');
+        this.setAIOpsAvatarActive(messageElement, false);
 
         // 获取消息内容包装器
         const messageContentWrapper = messageElement.querySelector('.message-content-wrapper');
@@ -1521,18 +1568,12 @@ class SuperBizAgentApp {
                 <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <span>查看详细步骤 (${details.length}条)</span>
+                <span>查看诊断过程</span>
             `;
 
             const detailsContent = document.createElement('div');
             detailsContent.className = 'details-content';
-            
-            details.forEach((detail, index) => {
-                const detailItem = document.createElement('div');
-                detailItem.className = 'detail-item';
-                detailItem.innerHTML = `<strong>步骤 ${index + 1}:</strong> ${this.escapeHtml(detail)}`;
-                detailsContent.appendChild(detailItem);
-            });
+            detailsContent.innerHTML = this.renderMarkdown(details);
 
             // 点击切换折叠状态
             detailsToggle.addEventListener('click', () => {
@@ -1542,6 +1583,7 @@ class SuperBizAgentApp {
 
             detailsContainer.appendChild(detailsToggle);
             detailsContainer.appendChild(detailsContent);
+            this.highlightCodeBlocks(detailsContent);
         }
 
         // 更新主要响应内容（使用Markdown渲染）
@@ -1656,6 +1698,7 @@ class SuperBizAgentApp {
         // 添加"分析中..."的消息（带旋转动画）
         const loadingMessage = this.addLoadingMessage('分析中...');
         this.currentAIOpsMessage = loadingMessage; // 保存消息引用用于后续更新
+        this.setAIOpsAvatarActive(loadingMessage, true);
         this.aiOpsPlanTotal = 0;
         this.aiOpsCompletedSteps = 0;
         
@@ -1675,6 +1718,7 @@ class SuperBizAgentApp {
                 }
             }
         } finally {
+            this.setAIOpsAvatarActive(loadingMessage, false);
             this.isStreaming = false;
             this.currentAIOpsMessage = null;
             this.updateUI();

@@ -237,8 +237,8 @@ async def replanner(state: PlanExecuteState) -> Dict[str, Any]:
 
     else:
         # 没有剩余计划，生成最终响应
-        logger.info("计划已执行完毕，生成最终响应")
-        return await _generate_response(state, llm)
+        logger.info("计划已执行完毕，交由服务层流式生成最终响应")
+        return {"response": "__STREAM_FINAL_REPORT__"}
 
 
 async def _generate_response(state: PlanExecuteState, llm) -> Dict[str, Any]:

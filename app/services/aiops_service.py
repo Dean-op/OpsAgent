@@ -3,12 +3,16 @@
 基于 LangGraph 官方教程实现
 """
 
+from textwrap import dedent
 from typing import AsyncGenerator, Dict, Any
+from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
 from loguru import logger
 
+from app.config import config
 from app.agent.aiops import PlanExecuteState, planner, executor, replanner
+from app.core.llm_factory import llm_factory
 
 
 # 节点名称常量
@@ -137,6 +141,14 @@ class AIOpsService:
             # 安全地获取响应（处理 values 可能为 None 的情况）
             if final_state and final_state.values:
                 final_response = final_state.values.get("response", "")
+                if final_response == "__STREAM_FINAL_REPORT__":
+                    final_response = ""
+
+            if final_state and final_state.values:
+                async for stream_event in self._stream_final_report(final_state.values, fallback_response=final_response):
+                    if stream_event.get("type") == "content":
+                        final_response += stream_event.get("data", "")
+                    yield stream_event
 
             # 发送完成事件
             yield {
@@ -155,6 +167,67 @@ class AIOpsService:
                 "stage": "error",
                 "message": f"任务执行出错: {str(e)}"
             }
+
+    async def _stream_final_report(
+        self,
+        state: Dict[str, Any],
+        fallback_response: str = "",
+    ) -> AsyncGenerator[Dict[str, Any], None]:
+        """以 token/片段级流式方式生成最终 AIOps 报告。"""
+        input_text = state.get("input", "")
+        past_steps = state.get("past_steps", [])
+
+        if not past_steps:
+            if fallback_response:
+                yield {
+                    "type": "content",
+                    "stage": "final_report_stream",
+                    "data": fallback_response,
+                }
+            return
+
+        execution_history = "\n\n".join([
+            f"### 步骤: {step}\n**结果:**\n{result}"
+            for step, result in past_steps
+        ])
+
+        llm = llm_factory.create_chat_model(
+            model=config.rag_model,
+            temperature=0,
+            streaming=True,
+        )
+
+        messages = [
+            SystemMessage(content=dedent("""
+                你是智能运维诊断助手。请根据原始任务和已执行步骤的真实结果，
+                生成一份完整、结构化的 Markdown 诊断报告。
+
+                要求：
+                - 只基于执行历史中的真实数据，不要编造
+                - 如果工具调用失败或数据不足，需要明确说明
+                - 输出纯 Markdown，不要输出 JSON
+            """).strip()),
+            HumanMessage(content=f"原始任务:\n{input_text}\n\n执行历史:\n{execution_history}\n\n请开始生成最终诊断报告。"),
+        ]
+
+        try:
+            async for chunk in llm.astream(messages):
+                content = getattr(chunk, "content", "")
+                if not content:
+                    continue
+                yield {
+                    "type": "content",
+                    "stage": "final_report_stream",
+                    "data": content,
+                }
+        except Exception as e:
+            logger.error(f"流式生成最终报告失败: {e}", exc_info=True)
+            if fallback_response:
+                yield {
+                    "type": "content",
+                    "stage": "final_report_stream",
+                    "data": fallback_response,
+                }
 
     async def diagnose(
         self,
@@ -320,12 +393,11 @@ class AIOpsService:
         plan = state.get("plan", [])
 
         if response:
-            # 已生成最终响应
+            # 最终报告由服务层统一通过 content 事件流式生成，避免整段 report 抢先输出。
             return {
-                "type": "report",
+                "type": "status",
                 "stage": "final_report",
-                "message": "最终报告已生成",
-                "report": response
+                "message": "正在流式生成最终诊断报告"
             }
         else:
             # 重新规划

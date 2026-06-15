@@ -1,0 +1,1094 @@
+{
+  "benchmark": "rag_retrieval",
+  "created_at": "2026-06-15T20:05:43",
+  "cases_path": "D:\\AllProjectFile\\OtherProject\\OnCallAgent\\super_biz_agent_py-release-2026-05-17\\benchmarks\\rag_cases.json",
+  "top_k": 5,
+  "summary": {
+    "total_cases": 25,
+    "top1_accuracy": 0.96,
+    "recall_at_1": 0.96,
+    "recall_at_3": 1.0,
+    "recall_at_5": 1.0,
+    "average_latency_ms": 212.47,
+    "p95_latency_ms": 252.26,
+    "min_latency_ms": 152.75,
+    "max_latency_ms": 769.48
+  },
+  "cases": [
+    {
+      "id": "cpu-001",
+      "query": "CPU usage has stayed above 80% for five minutes. How should I troubleshoot it?",
+      "expected_source": "cpu_high_usage.md",
+      "retrieved_sources": [
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.6264312863349915,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.6264312863349915,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.6288087368011475,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.672107458114624,
+          "content_preview": "## 常见原因分析   ### 原因1: 死循环或无限递归 **特征**: - 单个进程CPU占用接近100% - 应用日志中有大量重复的错误堆栈 - 内存使用也可能同步增长   **处理方案**: 1. 立即重启受影响的服务实例 2. 查看应用日志定位代码问题 3. 回滚到上一个稳定版本 4. 通知开发团队修复代码b"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.6734039783477783,
+          "content_preview": "## 常见原因分析   ### 原因1: 死循环或无限递归 **特征**: - 单个进程CPU占用接近100% - 应用日志中有大量重复的错误堆栈 - 内存使用也可能同步增长   **处理方案**: 1. 立即重启受影响的服务实例 2. 查看应用日志定位代码问题 3. 回滚到上一个稳定版本 4. 通知开发团队修复代码b"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 769.48
+    },
+    {
+      "id": "cpu-002",
+      "query": "HighCPUUsage alert was triggered. Which logs and metrics should be checked?",
+      "expected_source": "cpu_high_usage.md",
+      "retrieved_sources": [
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.6509512662887573,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.6509512662887573,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.6523930430412292,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.6580216884613037,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的时间范围，用于后续日志查询   ### 步骤2: 查询系统日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` (广州)"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.6597692966461182,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的时间范围，用于后续日志查询   ### 步骤2: 查询系统日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` (广州)"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 252.26
+    },
+    {
+      "id": "cpu-003",
+      "query": "The service is slow and system load is high because CPU is saturated.",
+      "expected_source": "cpu_high_usage.md",
+      "retrieved_sources": [
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.8301787376403809,
+          "content_preview": "## 常见原因分析   ### 原因1: 死循环或无限递归 **特征**: - 单个进程CPU占用接近100% - 应用日志中有大量重复的错误堆栈 - 内存使用也可能同步增长   **处理方案**: 1. 立即重启受影响的服务实例 2. 查看应用日志定位代码问题 3. 回滚到上一个稳定版本 4. 通知开发团队修复代码b"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.832557737827301,
+          "content_preview": "## 常见原因分析   ### 原因1: 死循环或无限递归 **特征**: - 单个进程CPU占用接近100% - 应用日志中有大量重复的错误堆栈 - 内存使用也可能同步增长   **处理方案**: 1. 立即重启受影响的服务实例 2. 查看应用日志定位代码问题 3. 回滚到上一个稳定版本 4. 通知开发团队修复代码b"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.832557737827301,
+          "content_preview": "## 常见原因分析   ### 原因1: 死循环或无限递归 **特征**: - 单个进程CPU占用接近100% - 应用日志中有大量重复的错误堆栈 - 内存使用也可能同步增长   **处理方案**: 1. 立即重启受影响的服务实例 2. 查看应用日志定位代码问题 3. 回滚到上一个稳定版本 4. 通知开发团队修复代码b"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.892479419708252,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.892479419708252,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 208.22
+    },
+    {
+      "id": "cpu-004",
+      "query": "How do I analyze a container with cpu_usage greater than 80 percent?",
+      "expected_source": "cpu_high_usage.md",
+      "retrieved_sources": [
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.6562947034835815,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.6562947034835815,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.6589154601097107,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.7743008136749268,
+          "content_preview": "## 常见原因分析   ### 原因1: 死循环或无限递归 **特征**: - 单个进程CPU占用接近100% - 应用日志中有大量重复的错误堆栈 - 内存使用也可能同步增长   **处理方案**: 1. 立即重启受影响的服务实例 2. 查看应用日志定位代码问题 3. 回滚到上一个稳定版本 4. 通知开发团队修复代码b"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.7758921384811401,
+          "content_preview": "## 常见原因分析   ### 原因1: 死循环或无限递归 **特征**: - 单个进程CPU占用接近100% - 应用日志中有大量重复的错误堆栈 - 内存使用也可能同步增长   **处理方案**: 1. 立即重启受影响的服务实例 2. 查看应用日志定位代码问题 3. 回滚到上一个稳定版本 4. 通知开发团队修复代码b"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 179.74
+    },
+    {
+      "id": "cpu-005",
+      "query": "What handling plan should I follow for a serious CPU utilization alarm?",
+      "expected_source": "cpu_high_usage.md",
+      "retrieved_sources": [
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md",
+        "cpu_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.5806369781494141,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.5806369781494141,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.5840549468994141,
+          "content_preview": "# CPU使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighCPUUsage` - **告警级别**: 严重 - **触发条件**: CPU使用率持续5分钟超过80%  ## 问题描述 当服务器或容器的CPU使用率持续超过80%时，可能导致： - 应用响应变慢 - 请求超时增加 - 系统负载过"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.7529997825622559,
+          "content_preview": "## 常见原因分析   ### 原因1: 死循环或无限递归 **特征**: - 单个进程CPU占用接近100% - 应用日志中有大量重复的错误堆栈 - 内存使用也可能同步增长   **处理方案**: 1. 立即重启受影响的服务实例 2. 查看应用日志定位代码问题 3. 回滚到上一个稳定版本 4. 通知开发团队修复代码b"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 0.7540152072906494,
+          "content_preview": "## 常见原因分析   ### 原因1: 死循环或无限递归 **特征**: - 单个进程CPU占用接近100% - 应用日志中有大量重复的错误堆栈 - 内存使用也可能同步增长   **处理方案**: 1. 立即重启受影响的服务实例 2. 查看应用日志定位代码问题 3. 回滚到上一个稳定版本 4. 通知开发团队修复代码b"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 181.53
+    },
+    {
+      "id": "memory-001",
+      "query": "Memory usage has been above 85% and the application may hit OOM.",
+      "expected_source": "memory_high_usage.md",
+      "retrieved_sources": [
+        "memory_high_usage.md",
+        "memory_high_usage.md",
+        "memory_high_usage.md",
+        "memory_high_usage.md",
+        "disk_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.680048942565918,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的时间范围   ### 步骤2: 查询系统监控日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主题**:"
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.6811570525169373,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的时间范围   ### 步骤2: 查询系统监控日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主题**:"
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.7271747589111328,
+          "content_preview": "# 内存使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighMemoryUsage` - **告警级别**: 严重 - **触发条件**: 内存使用率持续5分钟超过85%  ## 问题描述 当服务器或容器的内存使用率持续超过85%时，可能导致： - 应用频繁GC（垃圾回收） - OOM（Out "
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.730920672416687,
+          "content_preview": "# 内存使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighMemoryUsage` - **告警级别**: 严重 - **触发条件**: 内存使用率持续5分钟超过85%  ## 问题描述 当服务器或容器的内存使用率持续超过85%时，可能导致： - 应用频繁GC（垃圾回收） - OOM（Out "
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.8767070770263672,
+          "content_preview": "# 磁盘使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighDiskUsage` - **告警级别**: 警告（>80%）/ 严重（>90%） - **触发条件**: 磁盘使用率持续5分钟超过阈值  ## 问题描述 磁盘使用率过高会导致： - 无法写入新数据 - 日志无法记录 - 应用崩溃 - "
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 186.83
+    },
+    {
+      "id": "memory-002",
+      "query": "HighMemoryUsage alert appeared. How should I investigate GC and memory leaks?",
+      "expected_source": "memory_high_usage.md",
+      "retrieved_sources": [
+        "memory_high_usage.md",
+        "memory_high_usage.md",
+        "memory_high_usage.md",
+        "memory_high_usage.md",
+        "memory_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.5696521401405334,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的时间范围   ### 步骤2: 查询系统监控日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主题**:"
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.5706750154495239,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的时间范围   ### 步骤2: 查询系统监控日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主题**:"
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.6421338319778442,
+          "content_preview": "# 内存使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighMemoryUsage` - **告警级别**: 严重 - **触发条件**: 内存使用率持续5分钟超过85%  ## 问题描述 当服务器或容器的内存使用率持续超过85%时，可能导致： - 应用频繁GC（垃圾回收） - OOM（Out "
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.6431769132614136,
+          "content_preview": "# 内存使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighMemoryUsage` - **告警级别**: 严重 - **触发条件**: 内存使用率持续5分钟超过85%  ## 问题描述 当服务器或容器的内存使用率持续超过85%时，可能导致： - 应用频繁GC（垃圾回收） - OOM（Out "
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.6954150199890137,
+          "content_preview": "## 紧急处理措施   ### 立即操作（5分钟内） 1. **重启高内存实例**: 快速释放内存，恢复服务 2. **扩容**: 增加实例数量，分散内存压力 3. **限流**: 如果是流量问题，启用限流保护   ### 短期措施（30分钟内） 1. **分析日志**: 确定内存增长的根本原因 2. **dump内存"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 160.98
+    },
+    {
+      "id": "memory-003",
+      "query": "The server is swapping frequently and performance dropped sharply.",
+      "expected_source": "memory_high_usage.md",
+      "retrieved_sources": [
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "memory_high_usage.md",
+        "cpu_high_usage.md",
+        "memory_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "disk_high_usage.md",
+          "score": 1.0563005208969116,
+          "content_preview": "# 磁盘使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighDiskUsage` - **告警级别**: 警告（>80%）/ 严重（>90%） - **触发条件**: 磁盘使用率持续5分钟超过阈值  ## 问题描述 磁盘使用率过高会导致： - 无法写入新数据 - 日志无法记录 - 应用崩溃 - "
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 1.058234453201294,
+          "content_preview": "# 磁盘使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighDiskUsage` - **告警级别**: 警告（>80%）/ 严重（>90%） - **触发条件**: 磁盘使用率持续5分钟超过阈值  ## 问题描述 磁盘使用率过高会导致： - 无法写入新数据 - 日志无法记录 - 应用崩溃 - "
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 1.0726511478424072,
+          "content_preview": "# 内存使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighMemoryUsage` - **告警级别**: 严重 - **触发条件**: 内存使用率持续5分钟超过85%  ## 问题描述 当服务器或容器的内存使用率持续超过85%时，可能导致： - 应用频繁GC（垃圾回收） - OOM（Out "
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 1.0727653503417969,
+          "content_preview": "## 常见原因分析   ### 原因1: 死循环或无限递归 **特征**: - 单个进程CPU占用接近100% - 应用日志中有大量重复的错误堆栈 - 内存使用也可能同步增长   **处理方案**: 1. 立即重启受影响的服务实例 2. 查看应用日志定位代码问题 3. 回滚到上一个稳定版本 4. 通知开发团队修复代码b"
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 1.0746448040008545,
+          "content_preview": "# 内存使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighMemoryUsage` - **告警级别**: 严重 - **触发条件**: 内存使用率持续5分钟超过85%  ## 问题描述 当服务器或容器的内存使用率持续超过85%时，可能导致： - 应用频繁GC（垃圾回收） - OOM（Out "
+        }
+      ],
+      "top1_correct": false,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 159.9
+    },
+    {
+      "id": "memory-004",
+      "query": "How do I troubleshoot event OOM or memory_usage above 85?",
+      "expected_source": "memory_high_usage.md",
+      "retrieved_sources": [
+        "memory_high_usage.md",
+        "memory_high_usage.md",
+        "memory_high_usage.md",
+        "memory_high_usage.md",
+        "memory_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.5507477521896362,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的时间范围   ### 步骤2: 查询系统监控日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主题**:"
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.5510991215705872,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的时间范围   ### 步骤2: 查询系统监控日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主题**:"
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.7422757148742676,
+          "content_preview": "# 内存使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighMemoryUsage` - **告警级别**: 严重 - **触发条件**: 内存使用率持续5分钟超过85%  ## 问题描述 当服务器或容器的内存使用率持续超过85%时，可能导致： - 应用频繁GC（垃圾回收） - OOM（Out "
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.7455757260322571,
+          "content_preview": "# 内存使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighMemoryUsage` - **告警级别**: 严重 - **触发条件**: 内存使用率持续5分钟超过85%  ## 问题描述 当服务器或容器的内存使用率持续超过85%时，可能导致： - 应用频繁GC（垃圾回收） - OOM（Out "
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.7659461498260498,
+          "content_preview": "## 紧急处理措施   ### 立即操作（5分钟内） 1. **重启高内存实例**: 快速释放内存，恢复服务 2. **扩容**: 增加实例数量，分散内存压力 3. **限流**: 如果是流量问题，启用限流保护   ### 短期措施（30分钟内） 1. **分析日志**: 确定内存增长的根本原因 2. **dump内存"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 160.36
+    },
+    {
+      "id": "memory-005",
+      "query": "The container keeps restarting because of excessive memory consumption.",
+      "expected_source": "memory_high_usage.md",
+      "retrieved_sources": [
+        "memory_high_usage.md",
+        "memory_high_usage.md",
+        "memory_high_usage.md",
+        "memory_high_usage.md",
+        "memory_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.8169339895248413,
+          "content_preview": "# 内存使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighMemoryUsage` - **告警级别**: 严重 - **触发条件**: 内存使用率持续5分钟超过85%  ## 问题描述 当服务器或容器的内存使用率持续超过85%时，可能导致： - 应用频繁GC（垃圾回收） - OOM（Out "
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.8185364603996277,
+          "content_preview": "# 内存使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighMemoryUsage` - **告警级别**: 严重 - **触发条件**: 内存使用率持续5分钟超过85%  ## 问题描述 当服务器或容器的内存使用率持续超过85%时，可能导致： - 应用频繁GC（垃圾回收） - OOM（Out "
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.8958261013031006,
+          "content_preview": "## 常见原因分析   ### 原因1: 内存泄漏 **特征**: - 内存使用率持续缓慢上升 - Full GC后内存无法释放 - 应用运行时间越长，内存占用越高 - 日志中有大量GC记录   **处理方案**: 1. **紧急措施**: 重启应用释放内存 2. **获取堆转储**: 在重启前dump内存快照 3. "
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.9027582406997681,
+          "content_preview": "## 常见原因分析   ### 原因1: 内存泄漏 **特征**: - 内存使用率持续缓慢上升 - Full GC后内存无法释放 - 应用运行时间越长，内存占用越高 - 日志中有大量GC记录   **处理方案**: 1. **紧急措施**: 重启应用释放内存 2. **获取堆转储**: 在重启前dump内存快照 3. "
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.9256960153579712,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的时间范围   ### 步骤2: 查询系统监控日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主题**:"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 236.56
+    },
+    {
+      "id": "disk-001",
+      "query": "Disk usage is over 90% and the application cannot write new data.",
+      "expected_source": "disk_high_usage.md",
+      "retrieved_sources": [
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.7971819639205933,
+          "content_preview": "# 磁盘使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighDiskUsage` - **告警级别**: 警告（>80%）/ 严重（>90%） - **触发条件**: 磁盘使用率持续5分钟超过阈值  ## 问题描述 磁盘使用率过高会导致： - 无法写入新数据 - 日志无法记录 - 应用崩溃 - "
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.7979719042778015,
+          "content_preview": "# 磁盘使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighDiskUsage` - **告警级别**: 警告（>80%）/ 严重（>90%） - **触发条件**: 磁盘使用率持续5分钟超过阈值  ## 问题描述 磁盘使用率过高会导致： - 无法写入新数据 - 日志无法记录 - 应用崩溃 - "
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.8855492472648621,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录告警时间，用于日志查询   ### 步骤2: 查询系统磁盘使用情况 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.8855492472648621,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录告警时间，用于日志查询   ### 步骤2: 查询系统磁盘使用情况 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.9604130387306213,
+          "content_preview": "## 常见原因分析   ### 原因1: 日志文件过大 **特征**: - /var/log 目录占用大量空间 - 应用日志文件持续增长 - 没有日志轮转或轮转失败 - 日志级别设置为DEBUG   **处理方案**: 1. **立即清理**: ```bash # 查找大日志文件 find /var/log -type"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 173.96
+    },
+    {
+      "id": "disk-002",
+      "query": "HighDiskUsage alert was triggered. What cleanup and inspection steps are needed?",
+      "expected_source": "disk_high_usage.md",
+      "retrieved_sources": [
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "memory_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.6566265225410461,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录告警时间，用于日志查询   ### 步骤2: 查询系统磁盘使用情况 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.6566265225410461,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录告警时间，用于日志查询   ### 步骤2: 查询系统磁盘使用情况 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.6828581690788269,
+          "content_preview": "# 磁盘使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighDiskUsage` - **告警级别**: 警告（>80%）/ 严重（>90%） - **触发条件**: 磁盘使用率持续5分钟超过阈值  ## 问题描述 磁盘使用率过高会导致： - 无法写入新数据 - 日志无法记录 - 应用崩溃 - "
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.6835298538208008,
+          "content_preview": "# 磁盘使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighDiskUsage` - **告警级别**: 警告（>80%）/ 严重（>90%） - **触发条件**: 磁盘使用率持续5分钟超过阈值  ## 问题描述 磁盘使用率过高会导致： - 无法写入新数据 - 日志无法记录 - 应用崩溃 - "
+        },
+        {
+          "source": "memory_high_usage.md",
+          "score": 0.8257896900177002,
+          "content_preview": "# 内存使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighMemoryUsage` - **告警级别**: 严重 - **触发条件**: 内存使用率持续5分钟超过85%  ## 问题描述 当服务器或容器的内存使用率持续超过85%时，可能导致： - 应用频繁GC（垃圾回收） - OOM（Out "
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 229.68
+    },
+    {
+      "id": "disk-003",
+      "query": "Logs cannot be written because the filesystem is almost full.",
+      "expected_source": "disk_high_usage.md",
+      "retrieved_sources": [
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.9337739944458008,
+          "content_preview": "## 常用命令   ### 查看磁盘使用情况 ```bash # 查看磁盘使用率 df -h  # 查看目录大小 du -sh /var/log  # 查找大文件 find / -type f -size +1G  # 查看inode使用情况 df -i ```   ### 清理命令 ```bash # 清空文件内容（"
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.9370154738426208,
+          "content_preview": "## 常用命令   ### 查看磁盘使用情况 ```bash # 查看磁盘使用率 df -h  # 查看目录大小 du -sh /var/log  # 查找大文件 find / -type f -size +1G  # 查看inode使用情况 df -i ```   ### 清理命令 ```bash # 清空文件内容（"
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.9691544771194458,
+          "content_preview": "## 紧急处理措施   ### 立即操作（5分钟内） 1. **快速清理**: - 删除大日志文件 - 清理临时文件 - 删除不必要的文件   2. **释放空间**: ```bash # 查找最大的10个文件 du -ah / | sort -rh | head -n 10  # 查找最大的10个目录 du -h -"
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.9691544771194458,
+          "content_preview": "## 紧急处理措施   ### 立即操作（5分钟内） 1. **快速清理**: - 删除大日志文件 - 清理临时文件 - 删除不必要的文件   2. **释放空间**: ```bash # 查找最大的10个文件 du -ah / | sort -rh | head -n 10  # 查找最大的10个目录 du -h -"
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 1.0312566757202148,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录告警时间，用于日志查询   ### 步骤2: 查询系统磁盘使用情况 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 234.61
+    },
+    {
+      "id": "disk-004",
+      "query": "How should I handle disk_full true or disk_usage above 80?",
+      "expected_source": "disk_high_usage.md",
+      "retrieved_sources": [
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.6207228899002075,
+          "content_preview": "# 磁盘使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighDiskUsage` - **告警级别**: 警告（>80%）/ 严重（>90%） - **触发条件**: 磁盘使用率持续5分钟超过阈值  ## 问题描述 磁盘使用率过高会导致： - 无法写入新数据 - 日志无法记录 - 应用崩溃 - "
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.6216745376586914,
+          "content_preview": "# 磁盘使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighDiskUsage` - **告警级别**: 警告（>80%）/ 严重（>90%） - **触发条件**: 磁盘使用率持续5分钟超过阈值  ## 问题描述 磁盘使用率过高会导致： - 无法写入新数据 - 日志无法记录 - 应用崩溃 - "
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.7168612480163574,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录告警时间，用于日志查询   ### 步骤2: 查询系统磁盘使用情况 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.7168612480163574,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录告警时间，用于日志查询   ### 步骤2: 查询系统磁盘使用情况 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 0.8623199462890625,
+          "content_preview": "## 常用命令   ### 查看磁盘使用情况 ```bash # 查看磁盘使用率 df -h  # 查看目录大小 du -sh /var/log  # 查找大文件 find / -type f -size +1G  # 查看inode使用情况 df -i ```   ### 清理命令 ```bash # 清空文件内容（"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 166.73
+    },
+    {
+      "id": "disk-005",
+      "query": "Database may be damaged because available disk space is too low.",
+      "expected_source": "disk_high_usage.md",
+      "retrieved_sources": [
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md",
+        "disk_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "disk_high_usage.md",
+          "score": 1.0706232786178589,
+          "content_preview": "# 磁盘使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighDiskUsage` - **告警级别**: 警告（>80%）/ 严重（>90%） - **触发条件**: 磁盘使用率持续5分钟超过阈值  ## 问题描述 磁盘使用率过高会导致： - 无法写入新数据 - 日志无法记录 - 应用崩溃 - "
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 1.070939540863037,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录告警时间，用于日志查询   ### 步骤2: 查询系统磁盘使用情况 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 1.070939540863037,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录告警时间，用于日志查询   ### 步骤2: 查询系统磁盘使用情况 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 1.0724024772644043,
+          "content_preview": "# 磁盘使用率过高告警处理方案   ## 告警名称 - **告警名**: `HighDiskUsage` - **告警级别**: 警告（>80%）/ 严重（>90%） - **触发条件**: 磁盘使用率持续5分钟超过阈值  ## 问题描述 磁盘使用率过高会导致： - 无法写入新数据 - 日志无法记录 - 应用崩溃 - "
+        },
+        {
+          "source": "disk_high_usage.md",
+          "score": 1.1287308931350708,
+          "content_preview": "## 常用命令   ### 查看磁盘使用情况 ```bash # 查看磁盘使用率 df -h  # 查看目录大小 du -sh /var/log  # 查找大文件 find / -type f -size +1G  # 查看inode使用情况 df -i ```   ### 清理命令 ```bash # 清空文件内容（"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 219.65
+    },
+    {
+      "id": "unavailable-001",
+      "query": "ServiceUnavailable alert: health checks are failing and users cannot access the service.",
+      "expected_source": "service_unavailable.md",
+      "retrieved_sources": [
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "slow_response.md"
+      ],
+      "retrieved": [
+        {
+          "source": "service_unavailable.md",
+          "score": 0.704016387462616,
+          "content_preview": "# 服务不可用告警处理方案   ## 告警名称 - **告警名**: `ServiceUnavailable` - **告警级别**: 紧急 - **触发条件**: 服务健康检查失败或错误率超过50%  ## 问题描述 服务不可用是最严重的故障，会导致： - 用户无法访问服务 - 业务完全中断 - 可能造成经济损失 -"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 0.704016387462616,
+          "content_preview": "# 服务不可用告警处理方案   ## 告警名称 - **告警名**: `ServiceUnavailable` - **告警级别**: 紧急 - **触发条件**: 服务健康检查失败或错误率超过50%  ## 问题描述 服务不可用是最严重的故障，会导致： - 用户无法访问服务 - 业务完全中断 - 可能造成经济损失 -"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 0.9466800093650818,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录故障发生时间，用于后续分析   ### 步骤2: 查询服务状态日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 0.9507185220718384,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录故障发生时间，用于后续分析   ### 步骤2: 查询服务状态日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 1.02667236328125,
+          "content_preview": "# 服务响应时间过长告警处理方案   ## 告警名称 - **告警名**: `SlowResponse` - **告警级别**: 警告 - **触发条件**: P99响应时间持续5分钟超过3秒  ## 问题描述 当服务的响应时间持续超过阈值时，会导致： - 用户体验下降 - 请求堆积 - 可能触发超时错误 - 影响下游"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 156.28
+    },
+    {
+      "id": "unavailable-002",
+      "query": "The service error rate is above 50% and business traffic is interrupted.",
+      "expected_source": "service_unavailable.md",
+      "retrieved_sources": [
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "cpu_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "service_unavailable.md",
+          "score": 0.9604831337928772,
+          "content_preview": "# 服务不可用告警处理方案   ## 告警名称 - **告警名**: `ServiceUnavailable` - **告警级别**: 紧急 - **触发条件**: 服务健康检查失败或错误率超过50%  ## 问题描述 服务不可用是最严重的故障，会导致： - 用户无法访问服务 - 业务完全中断 - 可能造成经济损失 -"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 0.9604831337928772,
+          "content_preview": "# 服务不可用告警处理方案   ## 告警名称 - **告警名**: `ServiceUnavailable` - **告警级别**: 紧急 - **触发条件**: 服务健康检查失败或错误率超过50%  ## 问题描述 服务不可用是最严重的故障，会导致： - 用户无法访问服务 - 业务完全中断 - 可能造成经济损失 -"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 1.1134978532791138,
+          "content_preview": "## 紧急处理流程   ### 第一时间（1分钟内） 1. **确认故障**: 通过监控和日志确认服务确实不可用 2. **启动应急**: 通知相关人员，启动应急响应流程 3. **止损措施**: - 如果是部分实例故障，摘除故障实例 - 如果是全部故障，启用备用服务或维护页面   ### 5分钟内 1. **快速定位"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 1.1139551401138306,
+          "content_preview": "## 紧急处理流程   ### 第一时间（1分钟内） 1. **确认故障**: 通过监控和日志确认服务确实不可用 2. **启动应急**: 通知相关人员，启动应急响应流程 3. **止损措施**: - 如果是部分实例故障，摘除故障实例 - 如果是全部故障，启用备用服务或维护页面   ### 5分钟内 1. **快速定位"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 1.124951720237732,
+          "content_preview": "## 常见原因分析   ### 原因1: 死循环或无限递归 **特征**: - 单个进程CPU占用接近100% - 应用日志中有大量重复的错误堆栈 - 内存使用也可能同步增长   **处理方案**: 1. 立即重启受影响的服务实例 2. 查看应用日志定位代码问题 3. 回滚到上一个稳定版本 4. 通知开发团队修复代码b"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 152.75
+    },
+    {
+      "id": "unavailable-003",
+      "query": "How do I investigate level ERROR, FATAL, or status 500 for an unavailable service?",
+      "expected_source": "service_unavailable.md",
+      "retrieved_sources": [
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "service_unavailable.md"
+      ],
+      "retrieved": [
+        {
+          "source": "service_unavailable.md",
+          "score": 0.745891273021698,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录故障发生时间，用于后续分析   ### 步骤2: 查询服务状态日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 0.7509585618972778,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录故障发生时间，用于后续分析   ### 步骤2: 查询服务状态日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 0.8659060597419739,
+          "content_preview": "# 服务不可用告警处理方案   ## 告警名称 - **告警名**: `ServiceUnavailable` - **告警级别**: 紧急 - **触发条件**: 服务健康检查失败或错误率超过50%  ## 问题描述 服务不可用是最严重的故障，会导致： - 用户无法访问服务 - 业务完全中断 - 可能造成经济损失 -"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 0.8659060597419739,
+          "content_preview": "# 服务不可用告警处理方案   ## 告警名称 - **告警名**: `ServiceUnavailable` - **告警级别**: 紧急 - **触发条件**: 服务健康检查失败或错误率超过50%  ## 问题描述 服务不可用是最严重的故障，会导致： - 用户无法访问服务 - 业务完全中断 - 可能造成经济损失 -"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 1.0276964902877808,
+          "content_preview": "## 常见原因分析   ### 原因1: 应用崩溃或无法启动 **特征**: - 所有实例都无法响应 - 日志中有启动失败记录 - 可能有OOM或其他致命错误 - 健康检查全部失败   **处理方案**: 1. **立即回滚**: - 如果是新版本发布后出现，立即回滚到上一个稳定版本 - 使用蓝绿部署或金丝雀发布策略 "
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 216.18
+    },
+    {
+      "id": "unavailable-004",
+      "query": "The application health endpoint failed continuously. What emergency diagnosis should I run?",
+      "expected_source": "service_unavailable.md",
+      "retrieved_sources": [
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "slow_response.md"
+      ],
+      "retrieved": [
+        {
+          "source": "service_unavailable.md",
+          "score": 0.7920383214950562,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录故障发生时间，用于后续分析   ### 步骤2: 查询服务状态日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 0.7954151630401611,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录故障发生时间，用于后续分析   ### 步骤2: 查询服务状态日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 0.8391122221946716,
+          "content_preview": "## 常见原因分析   ### 原因1: 应用崩溃或无法启动 **特征**: - 所有实例都无法响应 - 日志中有启动失败记录 - 可能有OOM或其他致命错误 - 健康检查全部失败   **处理方案**: 1. **立即回滚**: - 如果是新版本发布后出现，立即回滚到上一个稳定版本 - 使用蓝绿部署或金丝雀发布策略 "
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 0.8391122221946716,
+          "content_preview": "## 常见原因分析   ### 原因1: 应用崩溃或无法启动 **特征**: - 所有实例都无法响应 - 日志中有启动失败记录 - 可能有OOM或其他致命错误 - 健康检查全部失败   **处理方案**: 1. **立即回滚**: - 如果是新版本发布后出现，立即回滚到上一个稳定版本 - 使用蓝绿部署或金丝雀发布策略 "
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.974357545375824,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的准确时间   ### 步骤2: 查询应用性能日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主题**:"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 215.05
+    },
+    {
+      "id": "unavailable-005",
+      "query": "A critical outage makes the service completely unreachable.",
+      "expected_source": "service_unavailable.md",
+      "retrieved_sources": [
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "service_unavailable.md",
+        "service_unavailable.md"
+      ],
+      "retrieved": [
+        {
+          "source": "service_unavailable.md",
+          "score": 0.8746476173400879,
+          "content_preview": "# 服务不可用告警处理方案   ## 告警名称 - **告警名**: `ServiceUnavailable` - **告警级别**: 紧急 - **触发条件**: 服务健康检查失败或错误率超过50%  ## 问题描述 服务不可用是最严重的故障，会导致： - 用户无法访问服务 - 业务完全中断 - 可能造成经济损失 -"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 0.8746476173400879,
+          "content_preview": "# 服务不可用告警处理方案   ## 告警名称 - **告警名**: `ServiceUnavailable` - **告警级别**: 紧急 - **触发条件**: 服务健康检查失败或错误率超过50%  ## 问题描述 服务不可用是最严重的故障，会导致： - 用户无法访问服务 - 业务完全中断 - 可能造成经济损失 -"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 1.0880732536315918,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录故障发生时间，用于后续分析   ### 步骤2: 查询服务状态日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 1.094059944152832,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 记录故障发生时间，用于后续分析   ### 步骤2: 查询服务状态日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 1.202540636062622,
+          "content_preview": "## 常见原因分析   ### 原因1: 应用崩溃或无法启动 **特征**: - 所有实例都无法响应 - 日志中有启动失败记录 - 可能有OOM或其他致命错误 - 健康检查全部失败   **处理方案**: 1. **立即回滚**: - 如果是新版本发布后出现，立即回滚到上一个稳定版本 - 使用蓝绿部署或金丝雀发布策略 "
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 174.75
+    },
+    {
+      "id": "slow-001",
+      "query": "P99 response time has exceeded 3 seconds for several minutes.",
+      "expected_source": "slow_response.md",
+      "retrieved_sources": [
+        "slow_response.md",
+        "slow_response.md",
+        "slow_response.md",
+        "slow_response.md",
+        "slow_response.md"
+      ],
+      "retrieved": [
+        {
+          "source": "slow_response.md",
+          "score": 0.8359262943267822,
+          "content_preview": "# 服务响应时间过长告警处理方案   ## 告警名称 - **告警名**: `SlowResponse` - **告警级别**: 警告 - **触发条件**: P99响应时间持续5分钟超过3秒  ## 问题描述 当服务的响应时间持续超过阈值时，会导致： - 用户体验下降 - 请求堆积 - 可能触发超时错误 - 影响下游"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.8359262943267822,
+          "content_preview": "# 服务响应时间过长告警处理方案   ## 告警名称 - **告警名**: `SlowResponse` - **告警级别**: 警告 - **触发条件**: P99响应时间持续5分钟超过3秒  ## 问题描述 当服务的响应时间持续超过阈值时，会导致： - 用户体验下降 - 请求堆积 - 可能触发超时错误 - 影响下游"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.8870348930358887,
+          "content_preview": "## 紧急处理措施   ### 立即操作（5分钟内） 1. **扩容**: 如果是资源不足，立即增加实例 2. **限流**: 保护系统不被压垮 3. **降级**: 关闭非核心功能 4. **重启**: 如果是内存泄漏等问题，重启受影响实例   ### 短期措施（30分钟内） 1. **定位根因**: 通过日志分析找"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.8870348930358887,
+          "content_preview": "## 紧急处理措施   ### 立即操作（5分钟内） 1. **扩容**: 如果是资源不足，立即增加实例 2. **限流**: 保护系统不被压垮 3. **降级**: 关闭非核心功能 4. **重启**: 如果是内存泄漏等问题，重启受影响实例   ### 短期措施（30分钟内） 1. **定位根因**: 通过日志分析找"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 1.0755988359451294,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的准确时间   ### 步骤2: 查询应用性能日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主题**:"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 184.22
+    },
+    {
+      "id": "slow-002",
+      "query": "SlowResponse alert was triggered. How should I diagnose slow queries and latency?",
+      "expected_source": "slow_response.md",
+      "retrieved_sources": [
+        "slow_response.md",
+        "slow_response.md",
+        "slow_response.md",
+        "slow_response.md",
+        "slow_response.md"
+      ],
+      "retrieved": [
+        {
+          "source": "slow_response.md",
+          "score": 0.6613914370536804,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的准确时间   ### 步骤2: 查询应用性能日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主题**:"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.6613914370536804,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的准确时间   ### 步骤2: 查询应用性能日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主题**:"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.7283759117126465,
+          "content_preview": "# 服务响应时间过长告警处理方案   ## 告警名称 - **告警名**: `SlowResponse` - **告警级别**: 警告 - **触发条件**: P99响应时间持续5分钟超过3秒  ## 问题描述 当服务的响应时间持续超过阈值时，会导致： - 用户体验下降 - 请求堆积 - 可能触发超时错误 - 影响下游"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.7283759117126465,
+          "content_preview": "# 服务响应时间过长告警处理方案   ## 告警名称 - **告警名**: `SlowResponse` - **告警级别**: 警告 - **触发条件**: P99响应时间持续5分钟超过3秒  ## 问题描述 当服务的响应时间持续超过阈值时，会导致： - 用户体验下降 - 请求堆积 - 可能触发超时错误 - 影响下游"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.8709507584571838,
+          "content_preview": "## 紧急处理措施   ### 立即操作（5分钟内） 1. **扩容**: 如果是资源不足，立即增加实例 2. **限流**: 保护系统不被压垮 3. **降级**: 关闭非核心功能 4. **重启**: 如果是内存泄漏等问题，重启受影响实例   ### 短期措施（30分钟内） 1. **定位根因**: 通过日志分析找"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 170.55
+    },
+    {
+      "id": "slow-003",
+      "query": "Requests are piling up and downstream services may time out.",
+      "expected_source": "slow_response.md",
+      "retrieved_sources": [
+        "slow_response.md",
+        "slow_response.md",
+        "slow_response.md",
+        "slow_response.md",
+        "cpu_high_usage.md"
+      ],
+      "retrieved": [
+        {
+          "source": "slow_response.md",
+          "score": 0.9004916548728943,
+          "content_preview": "# 服务响应时间过长告警处理方案   ## 告警名称 - **告警名**: `SlowResponse` - **告警级别**: 警告 - **触发条件**: P99响应时间持续5分钟超过3秒  ## 问题描述 当服务的响应时间持续超过阈值时，会导致： - 用户体验下降 - 请求堆积 - 可能触发超时错误 - 影响下游"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.9004916548728943,
+          "content_preview": "# 服务响应时间过长告警处理方案   ## 告警名称 - **告警名**: `SlowResponse` - **告警级别**: 警告 - **触发条件**: P99响应时间持续5分钟超过3秒  ## 问题描述 当服务的响应时间持续超过阈值时，会导致： - 用户体验下降 - 请求堆积 - 可能触发超时错误 - 影响下游"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 1.058380126953125,
+          "content_preview": "## 常见原因分析   ### 原因1: 数据库慢查询 **特征**: - 慢查询日志中有大量记录 - 数据库CPU使用率高 - 特定SQL执行时间长 - 数据库连接池接近满载   **处理方案**: 1. **立即优化**: - 找出最慢的SQL语句 - 检查是否缺少索引 - 查看执行计划（EXPLAIN） - 临时"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 1.058380126953125,
+          "content_preview": "## 常见原因分析   ### 原因1: 数据库慢查询 **特征**: - 慢查询日志中有大量记录 - 数据库CPU使用率高 - 特定SQL执行时间长 - 数据库连接池接近满载   **处理方案**: 1. **立即优化**: - 找出最慢的SQL语句 - 检查是否缺少索引 - 查看执行计划（EXPLAIN） - 临时"
+        },
+        {
+          "source": "cpu_high_usage.md",
+          "score": 1.0996925830841064,
+          "content_preview": "## 常见原因分析   ### 原因1: 死循环或无限递归 **特征**: - 单个进程CPU占用接近100% - 应用日志中有大量重复的错误堆栈 - 内存使用也可能同步增长   **处理方案**: 1. 立即重启受影响的服务实例 2. 查看应用日志定位代码问题 3. 回滚到上一个稳定版本 4. 通知开发团队修复代码b"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 201.34
+    },
+    {
+      "id": "slow-004",
+      "query": "How do I troubleshoot response_time greater than 3000 milliseconds?",
+      "expected_source": "slow_response.md",
+      "retrieved_sources": [
+        "slow_response.md",
+        "slow_response.md",
+        "slow_response.md",
+        "slow_response.md",
+        "slow_response.md"
+      ],
+      "retrieved": [
+        {
+          "source": "slow_response.md",
+          "score": 0.726935625076294,
+          "content_preview": "# 服务响应时间过长告警处理方案   ## 告警名称 - **告警名**: `SlowResponse` - **告警级别**: 警告 - **触发条件**: P99响应时间持续5分钟超过3秒  ## 问题描述 当服务的响应时间持续超过阈值时，会导致： - 用户体验下降 - 请求堆积 - 可能触发超时错误 - 影响下游"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.726935625076294,
+          "content_preview": "# 服务响应时间过长告警处理方案   ## 告警名称 - **告警名**: `SlowResponse` - **告警级别**: 警告 - **触发条件**: P99响应时间持续5分钟超过3秒  ## 问题描述 当服务的响应时间持续超过阈值时，会导致： - 用户体验下降 - 请求堆积 - 可能触发超时错误 - 影响下游"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.8379243612289429,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的准确时间   ### 步骤2: 查询应用性能日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主题**:"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.8379243612289429,
+          "content_preview": "## 排查步骤   ### 步骤1: 获取当前时间 **工具**: `get_current_time` **目的**: 确定告警发生的准确时间   ### 步骤2: 查询应用性能日志 **工具**: `query_logs` **参数要求**: - **地域**: `ap-guangzhou` - **日志主题**:"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.9074338674545288,
+          "content_preview": "## 紧急处理措施   ### 立即操作（5分钟内） 1. **扩容**: 如果是资源不足，立即增加实例 2. **限流**: 保护系统不被压垮 3. **降级**: 关闭非核心功能 4. **重启**: 如果是内存泄漏等问题，重启受影响实例   ### 短期措施（30分钟内） 1. **定位根因**: 通过日志分析找"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 165.52
+    },
+    {
+      "id": "slow-005",
+      "query": "The service is still available but user experience is poor because responses are too slow.",
+      "expected_source": "slow_response.md",
+      "retrieved_sources": [
+        "slow_response.md",
+        "slow_response.md",
+        "slow_response.md",
+        "slow_response.md",
+        "service_unavailable.md"
+      ],
+      "retrieved": [
+        {
+          "source": "slow_response.md",
+          "score": 0.8964569568634033,
+          "content_preview": "# 服务响应时间过长告警处理方案   ## 告警名称 - **告警名**: `SlowResponse` - **告警级别**: 警告 - **触发条件**: P99响应时间持续5分钟超过3秒  ## 问题描述 当服务的响应时间持续超过阈值时，会导致： - 用户体验下降 - 请求堆积 - 可能触发超时错误 - 影响下游"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 0.8964569568634033,
+          "content_preview": "# 服务响应时间过长告警处理方案   ## 告警名称 - **告警名**: `SlowResponse` - **告警级别**: 警告 - **触发条件**: P99响应时间持续5分钟超过3秒  ## 问题描述 当服务的响应时间持续超过阈值时，会导致： - 用户体验下降 - 请求堆积 - 可能触发超时错误 - 影响下游"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 1.13143789768219,
+          "content_preview": "## 紧急处理措施   ### 立即操作（5分钟内） 1. **扩容**: 如果是资源不足，立即增加实例 2. **限流**: 保护系统不被压垮 3. **降级**: 关闭非核心功能 4. **重启**: 如果是内存泄漏等问题，重启受影响实例   ### 短期措施（30分钟内） 1. **定位根因**: 通过日志分析找"
+        },
+        {
+          "source": "slow_response.md",
+          "score": 1.13143789768219,
+          "content_preview": "## 紧急处理措施   ### 立即操作（5分钟内） 1. **扩容**: 如果是资源不足，立即增加实例 2. **限流**: 保护系统不被压垮 3. **降级**: 关闭非核心功能 4. **重启**: 如果是内存泄漏等问题，重启受影响实例   ### 短期措施（30分钟内） 1. **定位根因**: 通过日志分析找"
+        },
+        {
+          "source": "service_unavailable.md",
+          "score": 1.1408412456512451,
+          "content_preview": "# 服务不可用告警处理方案   ## 告警名称 - **告警名**: `ServiceUnavailable` - **告警级别**: 紧急 - **触发条件**: 服务健康检查失败或错误率超过50%  ## 问题描述 服务不可用是最严重的故障，会导致： - 用户无法访问服务 - 业务完全中断 - 可能造成经济损失 -"
+        }
+      ],
+      "top1_correct": true,
+      "hit_at_3": true,
+      "hit_at_5": true,
+      "latency_ms": 154.7
+    }
+  ]
+}

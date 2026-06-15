@@ -1,0 +1,127 @@
+[
+  {
+    "id": "cpu-001",
+    "query": "CPU usage has stayed above 80% for five minutes. How should I troubleshoot it?",
+    "expected_source": "cpu_high_usage.md"
+  },
+  {
+    "id": "cpu-002",
+    "query": "HighCPUUsage alert was triggered. Which logs and metrics should be checked?",
+    "expected_source": "cpu_high_usage.md"
+  },
+  {
+    "id": "cpu-003",
+    "query": "The service is slow and system load is high because CPU is saturated.",
+    "expected_source": "cpu_high_usage.md"
+  },
+  {
+    "id": "cpu-004",
+    "query": "How do I analyze a container with cpu_usage greater than 80 percent?",
+    "expected_source": "cpu_high_usage.md"
+  },
+  {
+    "id": "cpu-005",
+    "query": "What handling plan should I follow for a serious CPU utilization alarm?",
+    "expected_source": "cpu_high_usage.md"
+  },
+  {
+    "id": "memory-001",
+    "query": "Memory usage has been above 85% and the application may hit OOM.",
+    "expected_source": "memory_high_usage.md"
+  },
+  {
+    "id": "memory-002",
+    "query": "HighMemoryUsage alert appeared. How should I investigate GC and memory leaks?",
+    "expected_source": "memory_high_usage.md"
+  },
+  {
+    "id": "memory-003",
+    "query": "The server is swapping frequently and performance dropped sharply.",
+    "expected_source": "memory_high_usage.md"
+  },
+  {
+    "id": "memory-004",
+    "query": "How do I troubleshoot event OOM or memory_usage above 85?",
+    "expected_source": "memory_high_usage.md"
+  },
+  {
+    "id": "memory-005",
+    "query": "The container keeps restarting because of excessive memory consumption.",
+    "expected_source": "memory_high_usage.md"
+  },
+  {
+    "id": "disk-001",
+    "query": "Disk usage is over 90% and the application cannot write new data.",
+    "expected_source": "disk_high_usage.md"
+  },
+  {
+    "id": "disk-002",
+    "query": "HighDiskUsage alert was triggered. What cleanup and inspection steps are needed?",
+    "expected_source": "disk_high_usage.md"
+  },
+  {
+    "id": "disk-003",
+    "query": "Logs cannot be written because the filesystem is almost full.",
+    "expected_source": "disk_high_usage.md"
+  },
+  {
+    "id": "disk-004",
+    "query": "How should I handle disk_full true or disk_usage above 80?",
+    "expected_source": "disk_high_usage.md"
+  },
+  {
+    "id": "disk-005",
+    "query": "Database may be damaged because available disk space is too low.",
+    "expected_source": "disk_high_usage.md"
+  },
+  {
+    "id": "unavailable-001",
+    "query": "ServiceUnavailable alert: health checks are failing and users cannot access the service.",
+    "expected_source": "service_unavailable.md"
+  },
+  {
+    "id": "unavailable-002",
+    "query": "The service error rate is above 50% and business traffic is interrupted.",
+    "expected_source": "service_unavailable.md"
+  },
+  {
+    "id": "unavailable-003",
+    "query": "How do I investigate level ERROR, FATAL, or status 500 for an unavailable service?",
+    "expected_source": "service_unavailable.md"
+  },
+  {
+    "id": "unavailable-004",
+    "query": "The application health endpoint failed continuously. What emergency diagnosis should I run?",
+    "expected_source": "service_unavailable.md"
+  },
+  {
+    "id": "unavailable-005",
+    "query": "A critical outage makes the service completely unreachable.",
+    "expected_source": "service_unavailable.md"
+  },
+  {
+    "id": "slow-001",
+    "query": "P99 response time has exceeded 3 seconds for several minutes.",
+    "expected_source": "slow_response.md"
+  },
+  {
+    "id": "slow-002",
+    "query": "SlowResponse alert was triggered. How should I diagnose slow queries and latency?",
+    "expected_source": "slow_response.md"
+  },
+  {
+    "id": "slow-003",
+    "query": "Requests are piling up and downstream services may time out.",
+    "expected_source": "slow_response.md"
+  },
+  {
+    "id": "slow-004",
+    "query": "How do I troubleshoot response_time greater than 3000 milliseconds?",
+    "expected_source": "slow_response.md"
+  },
+  {
+    "id": "slow-005",
+    "query": "The service is still available but user experience is poor because responses are too slow.",
+    "expected_source": "slow_response.md"
+  }
+]

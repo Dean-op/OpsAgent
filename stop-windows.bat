@@ -1,86 +1,86 @@
 @echo off
 chcp 65001 >nul
 echo ====================================
-echo 停止 SuperBizAgent 服务
+echo Stopping SuperBizAgent services
 echo ====================================
 echo.
 
-REM 停止 FastAPI 服务
-echo [1/5] 停止 FastAPI 服务...
+REM Stop FastAPI service.
+echo [1/5] Stopping FastAPI service...
 taskkill /FI "WINDOWTITLE eq SuperBizAgent API*" /F >nul 2>&1
 if errorlevel 1 (
-    echo [信息] FastAPI 服务未运行或已停止
+    echo [INFO] FastAPI service is not running or already stopped
 ) else (
-    echo [成功] FastAPI 服务已停止
+    echo [OK] FastAPI service stopped
 )
 echo.
 
-REM 停止 CLS MCP 服务
-echo [2/5] 停止 CLS MCP 服务...
+REM Stop CLS MCP service.
+echo [2/5] Stopping CLS MCP service...
 taskkill /FI "WINDOWTITLE eq CLS MCP Server*" /F >nul 2>&1
 if errorlevel 1 (
-    echo [信息] CLS MCP 服务未运行或已停止
+    echo [INFO] CLS MCP service is not running or already stopped
 ) else (
-    echo [成功] CLS MCP 服务已停止
+    echo [OK] CLS MCP service stopped
 )
 echo.
 
-REM 停止 Monitor MCP 服务
-echo [3/5] 停止 Monitor MCP 服务...
+REM Stop Monitor MCP service.
+echo [3/5] Stopping Monitor MCP service...
 taskkill /FI "WINDOWTITLE eq Monitor MCP Server*" /F >nul 2>&1
 if errorlevel 1 (
-    echo [信息] Monitor MCP 服务未运行或已停止
+    echo [INFO] Monitor MCP service is not running or already stopped
 ) else (
-    echo [成功] Monitor MCP 服务已停止
+    echo [OK] Monitor MCP service stopped
 )
 echo.
 
-REM 兜底清理 MCP 端口占用
-echo [信息] 清理 MCP 端口占用...
+REM Clean up MCP port usage as a fallback.
+echo [INFO] Cleaning up MCP port usage...
 for %%p in (8003 8004) do (
     for /f "tokens=5" %%a in ('netstat -ano ^| findstr ":%%p" ^| findstr "LISTENING"') do (
-        echo [信息] 端口 %%p 仍被进程 %%a 占用，正在停止...
+        echo [INFO] Port %%p is still used by process %%a. Stopping it...
         taskkill /PID %%a /F >nul 2>&1
     )
 )
 echo.
 
-REM 停止 Docker 容器
-echo [4/5] 停止 Milvus 容器...
+REM Stop Docker containers.
+echo [4/5] Stopping Milvus container...
 docker ps --format "{{.Names}}" | findstr "milvus" >nul 2>&1
 if not errorlevel 1 (
     docker compose -f vector-database.yml down
     if errorlevel 1 (
-        echo [错误] Docker 容器停止失败
+        echo [ERROR] Failed to stop Docker containers
     ) else (
-        echo [成功] Milvus 容器已停止
+        echo [OK] Milvus container stopped
     )
 ) else (
-    echo [信息] Milvus 容器未运行
+    echo [INFO] Milvus container is not running
 )
 echo.
 
-REM 停止 Prometheus 容器
-echo [5/5] 停止 Prometheus 容器...
+REM Stop Prometheus container.
+echo [5/5] Stopping Prometheus container...
 docker ps --format "{{.Names}}" | findstr "super-biz-prometheus" >nul 2>&1
 if not errorlevel 1 (
     docker compose -f prometheus-docker.yml down
     if errorlevel 1 (
-        echo [错误] Prometheus 容器停止失败
+        echo [ERROR] Failed to stop Prometheus container
     ) else (
-        echo [成功] Prometheus 容器已停止
+        echo [OK] Prometheus container stopped
     )
 ) else (
-    echo [信息] Prometheus 容器未运行
+    echo [INFO] Prometheus container is not running
 )
 echo.
 
 echo ====================================
-echo 所有服务已停止！
+echo All services have been stopped!
 echo ====================================
 echo.
-echo 提示:
-echo   - 如需完全清理 Docker 数据卷，运行:
+echo Tip:
+echo   - To fully clean Docker volumes, run:
 echo     docker compose -f vector-database.yml down -v
 echo     docker compose -f prometheus-docker.yml down -v
 echo.
